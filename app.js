@@ -10,7 +10,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-var mysql = require('./sql/mysql-pooling');
+var query = require('./sql/mysql-select');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -40,21 +40,23 @@ app.use('/users', users);
 
 //passport config
 passport.use(new LocalStrategy(
-    function(username, password, done){
-        var user = {
-            id: '1',
-            username: 'admin',
-            password: 'admin'
-        };
-        
-        if(username !== user.username){
-            return done(null, false, {message: 'Incorrect username.'});
-        }
-        if(password !== user.password){
-            return done(null, false, {message: 'Incorrect passowrd.'});
-        }
-        
-        return done(null, user);
+    function(email, password, done){
+       query("*", "users where e_mail=\'" + email + "\';", function(err, rows, fileds){
+           console.log(rows[0].password);
+           if(err){
+               return done(err);
+           }
+           console.log("no");
+           if(!rows[0]){
+               return done(null, false, {message:"账号不存在"});
+           }
+           console.log("账号存在");
+           if(rows[0].password!==password){
+               return done(null, false, {message:"密码不存在"});
+           }
+           console.log("密码正确");
+           return done(null, rows[0]);
+       });
     }
 ));
 passport.serializeUser(function(user, done){
@@ -65,8 +67,8 @@ passport.deserializeUser(function(user, done){
 });
 
 //sql connect
-mysql("select 1+1 as solution", function(err, rows, fields){
-    console.log('The solution is:', rows[0].solution);
+query("*", "users",function(err, rows, fields){
+    console.log('The solution is:', rows[0]);
 })
 
 // catch 404 and forward to error handler
