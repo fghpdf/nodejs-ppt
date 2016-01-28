@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    
+    <title><%= title %></title>
+
+    <link href="/stylesheets/bootstrap-combined.min.css" rel="stylesheet" media="screen">
+
+    <script type="text/javascript" src="/javascripts/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#addbtn").click(function(){
+          $("textarea").before("<div class='alert alert-success'>成功添加一页ppt</div>")；
+        });
+      });
+    </script>
+  </head>
+  <body>
