@@ -7,6 +7,10 @@ router.get('/', function(req, res, next){
     res.render('ppt/create', {title: 'create'});
 });
 
+router.get('/create', function(req, res, next){
+    res.render('ppt/create', {title: 'create'});
+});
+
 router.post('/create', function(req, res, next){
     console.log(req.body);
     ppt.CreateNewPPT(req.body.title, req.body.name, req.body.url, function(err){
