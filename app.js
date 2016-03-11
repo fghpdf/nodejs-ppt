@@ -4,17 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var bcrypt = require('bcrypt-nodejs');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var ppt = require('./routes/ppt');
 
-var app = express();
-
-var query = require('./sql/mysql-select');
+var model = require('./database/model');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+
+
+var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +31,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('express-session')({
+app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
@@ -40,38 +44,40 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/ppt', ppt);
 
-//passport config
-passport.use(new LocalStrategy(
-    function(email, password, done){
-       query("*", "users where e_mail=\'" + email + "\';", function(err, rows, fileds){
-           console.log(rows[0].password);
-           if(err){
-               return done(err);
-           }
-           console.log("no");
-           if(!rows[0]){
-               return done(null, false, {message:"账号不存在"});
-           }
-           console.log("账号存在");
-           if(rows[0].password!==password){
-               return done(null, false, {message:"密码不存在"});
-           }
-           console.log("密码正确");
-           return done(null, rows[0]);
-       });
-    }
-));
-passport.serializeUser(function(user, done){
-    done(null, user);
-});
-passport.deserializeUser(function(user, done){
-    done(null, user);
+
+passport.use(new LocalStrategy({
+        usernameField: 'userEmail',
+        passwordField: 'userPassword'
+    },
+    function (username, password, done) {
+        console.log(username, password);
+        new model.User({
+            userEmail: username
+        }).fetch().then(function(data){
+            var user = data;
+            if (user === null) {
+                return done(null, false, {message: '此账号不存在'});
+            } else {
+                user = data.toJSON();
+                if (!bcrypt.compareSync(password, user.userPassword)) {
+                    return done(null, false, {message: '密码错误'});
+                } else {
+                    return done(null ,user);
+                }
+            }
+        })
+    }));
+
+passport.serializeUser(function(user, done) {
+    done(null, user.userEmail);
 });
 
-//sql connect
-query("*", "users",function(err, rows, fields){
-    console.log('The solution is:', rows[0]);
-})
+passport.deserializeUser(function(username, done) {
+    new model.User({userEmail: username}).fetch().then(function(user) {
+        done(null, user);
+    });
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

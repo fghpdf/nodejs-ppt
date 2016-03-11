@@ -1,13 +1,34 @@
-<% include header.html %>
-<form role='form' action="/register" method="post">
-    <div class="form-group">
-        <label for="exampleInputEmail1">账号</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="使用邮箱注册">
+<%- include header.html %>
+<div class="container-fluid" id="LG">
+    <div class="row-fluid">
+        <div class="span12">
+            <h3 class="text-center">
+                PPT在线制作
+            </h3>
+            <form class="form-horizontal" method="post" action="/register">
+                <% if(typeof(errorMessage) !== 'undefined') {%>
+                <span><%= errorMessage %></span>
+                <% } %>
+                <div class="control-group">
+                    <label class="control-label" for="userEmail">账号</label>
+                    <div class="controls">
+                        <input id="userEmail" type="email" name="userEmail" placeholder="请输入邮箱注册" required="required" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="userPassword">密码</label>
+                    <div class="controls">
+                        <input id="userPassword" type="password" name="userPassword" placeholder="请输入密码" required="required"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn">提交</button>
+                        <button type="button" class="btn btn-primary"><a href="login">登录</a></button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="密码">
-    </div>
-    <button type="submit" class="btn btn-default">注册</button>
-</form>
-<% include footer.html %>
+</div>
+<%- include footer.html %>

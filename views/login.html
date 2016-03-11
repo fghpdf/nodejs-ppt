@@ -1,0 +1,35 @@
+<%- include header.html %>
+<div class="container-fluid" id="LG">
+  <div class="row-fluid">
+    <div class="span12">
+      <h3 class="text-center">
+        PPT在线制作
+      </h3>
+      <form class="form-horizontal" method="post" action="/login">
+        <% if(typeof(errorMessage) !== 'undefined') {%>
+        <span><%= errorMessage %></span>
+        <% } %>
+        <div class="control-group">
+          <label class="control-label" for="userEmail">账号</label>
+          <div class="controls">
+            <input id="userEmail" type="email" name="userEmail" placeholder="请输入您的邮箱" required="required"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="userPassword">密码</label>
+          <div class="controls">
+            <input id="userPassword" type="password" name="userPassword" placeholder="请输入您的密码" required="required"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox"><input type="checkbox" />记住我</label>
+            <button type="submit" class="btn">登录</button>
+            <button type="button" class="btn btn-primary"><a href="register">注册</a></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include footer.html %>
