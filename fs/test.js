@@ -9,7 +9,7 @@ exports.CreateNewPPT = function(title, name, url, callback){
         "  url: " + url + "\n" +
         "output: output.html\n";
     console.log(content);
-    fs.open("./fs/test.md","w",0666,function(err, fd){
+    fs.open(".\\fs\\test.md","w", 0666,function(err, fd){
         if (err) {
             callback(err, null, null);
         }else{
@@ -28,7 +28,7 @@ exports.AddNewPage = function (text, callback) {
     var content = "\n--\n" +
         "\n" + text +
         "\n";
-    fs.open("./fs/test.md", "a", 0666, function(err, fd){
+    fs.open(".\\fs\\test.md", "a", 0666, function(err, fd){
         if (err) {
             callback(err, null, null);
         } else {

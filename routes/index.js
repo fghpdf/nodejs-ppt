@@ -8,9 +8,10 @@ var model = require('../database/model');
 /* GET home page. */
 router.all('/', isLoggedIn);
 router.all('/users', isLoggedIn);
+router.all('/ppt', isLoggedIn);
 
 router.get('/', function(req, res, next) {
-    res.redirect('/users');
+    res.redirect('/ppt');
 });
 
 //注册页面
@@ -64,7 +65,7 @@ router.post('/login', function(req, res, next){
             if(err) {
                 return res.render('login', {title: '登陆', errorMessage: err.message});
             } else {
-                return res.redirect('/users');
+                return res.redirect('/ppt');
             }
         });
     })(req, res, next);

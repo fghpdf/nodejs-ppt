@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>介绍</title>
+  <title>111</title>
   <style type="text/css">
     body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -364,24 +364,22 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </div>
 
   <div class="slide" id="slide-1">
-    <section class="slide-content"><h1 id="-">第一页</h1>
-<hr>
-<ol>
-<li>嗯嗯</li>
-<li>哈哈</li>
-<li>嘻嘻</li>
-</ol>
+    <section class="slide-content"><p>111</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-2">
-    <section class="slide-content"><p>![图片]<a href="http://static.bootcss.com/www/assets/img/codeguide.png">http://static.bootcss.com/www/assets/img/codeguide.png</a></p>
+    <section class="slide-content"><p>111</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><p>111</p>
+</section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-4">
     <section class="slide-content"><div class="author">
-  <h1 class="name">瞿祥轩</h1>
+  <h1 class="name">11</h1>
     <h3 class="url">
-      <a href="6666666">6666666</a>
+      <a href="11">11</a>
     </h3>
 </div>
 </section>
@@ -429,7 +427,11 @@ function navigate(n) {
  * Updates the current URL to include a hashtag of the current page number.
  */
 function updateURL() {
-  window.history.replaceState({} , null, '#' + currentPosition());
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
 }
 
 

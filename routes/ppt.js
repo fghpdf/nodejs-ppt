@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var async = require('async');
 
 var ppt = require('../fs/test');
 
@@ -36,12 +37,18 @@ router.post('/add', function(req, res, next){
 });
 
 router.get('/preview', function(req, res, next){
-    ppt.OutputPPT(function(err){
+    async.series(ppt.OutputPPT(function(err){
         if (err) {
             return res.render("error", {message: "命令运行失败！", error:err});
         }
-    });
-    res.render('ppt/output.html');
+    }),
+        ppt.OutputPPT(function(err){
+            if (err) {
+                return res.render("error", {message: "命令运行失败！", error:err});
+            }
+        }),
+        res.render('ppt/output.html')
+    );
 });
 
 

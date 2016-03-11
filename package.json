@@ -19,6 +19,8 @@
     "knex": "latest",
     "bookshelf": "latest",
     "express-session": "latest",
-    "bcrypt-nodejs": "latest"
+    "bcrypt-nodejs": "latest",
+    "step": "latest",
+    "async": "latest"
   }
 }

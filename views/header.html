@@ -5,13 +5,13 @@
     
     <title><%= title %></title>
 
-    <script type="text/script" src="/javascripts/bootstrap.js"></script>
-    <script type="text/script" src="/javascripts/bootstrap.min.js"></script>
-    <script type="text/script" src="/javascripts/bootstrap-paginator.min.js"></script>
-    <script type="text/script" src="/javascripts/bootstrap-select.min.js"></script>
-    <script type="text/script" src="/javascripts/jquery.json-2.4.js"></script>
-    <script type="text/script" src="/javascripts/jquery-2.2.0.min.js"></script>
-    <script type="text/script" src="/javascripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap-paginator.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap-select.min.js"></script>
+
 
     <link rel="stylesheet" href="/stylesheets/bootstrap.css" media="screen" />
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" media="screen" />
@@ -19,5 +19,12 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap-select.min.css" media="screen" />
     <link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css" media="screen" />
     <link rel="stylesheet" href="/stylesheets/style.css" media="screen" />
+    <script>
+      $(document).ready(function(){
+        $("#addbtn").click(function(){
+          $("textarea").before("<div class='alert alert-success'>成功添加一页ppt</div>");
+        });
+      });
+    </script>
   </head>
   <body screen_capture_injected="true">
