@@ -21,6 +21,7 @@
     "express-session": "latest",
     "bcrypt-nodejs": "latest",
     "step": "latest",
-    "async": "latest"
+    "async": "latest",
+    "passport-github": "latest"
   }
 }

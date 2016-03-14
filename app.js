@@ -15,6 +15,7 @@ var model = require('./database/model');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var GithubStrategy = require('passport-github').Strategy;
 
 
 var app = express();
@@ -44,7 +45,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/ppt', ppt);
 
-
+//本地登录
 passport.use(new LocalStrategy({
         usernameField: 'userEmail',
         passwordField: 'userPassword'
@@ -68,6 +69,14 @@ passport.use(new LocalStrategy({
         })
     }));
 
+//github登录
+passport.use(new GithubStrategy({
+    clientID: "20b6382b0176c4742297",
+    clientSecret: "a3e763e2b7ba8c5f9119b1ad4b78e03fdca7cb5d",
+    callback: "http://127.0.0.1/auth/github/callback"
+}, function(accessToken, refreshToken, profile, done){
+    done(null, profile);
+}));
 passport.serializeUser(function(user, done) {
     done(null, user.userEmail);
 });

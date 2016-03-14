@@ -9,6 +9,7 @@ var model = require('../database/model');
 router.all('/', isLoggedIn);
 router.all('/users', isLoggedIn);
 router.all('/ppt', isLoggedIn);
+router.all('/github', isLoggedIn);
 
 router.get('/', function(req, res, next) {
     res.redirect('/ppt');
@@ -43,7 +44,7 @@ router.post('/register', function(req, res, next) {
     });
 });
 
-//登录页面
+//本地登录页面
 router.get('/login', function(req, res, next) {
     res.render('login', { title: '登陆'});
 });
@@ -71,6 +72,13 @@ router.post('/login', function(req, res, next){
     })(req, res, next);
 });
 
+//github登录页面
+router.get('/auth/github', passport.authenticate('github'));
+
+router.get('/auth/github/callback', passport.authenticate('github', {
+    successRedirect: '/ppt',
+    failureRedirect: '/login'
+}));
 
 router.get('/logout', function(req, res){
     req.logout();
